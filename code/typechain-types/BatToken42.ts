@@ -33,6 +33,7 @@ export interface BatToken42Interface extends Interface {
       | "decimals"
       | "mint"
       | "name"
+      | "owner"
       | "symbol"
       | "totalSupply"
       | "transfer"
@@ -53,16 +54,14 @@ export interface BatToken42Interface extends Interface {
     functionFragment: "balanceOf",
     values: [AddressLike]
   ): string;
-  encodeFunctionData(
-    functionFragment: "burn",
-    values: [AddressLike, BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: "burn", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "mint",
     values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
@@ -84,6 +83,7 @@ export interface BatToken42Interface extends Interface {
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
@@ -176,47 +176,45 @@ export interface BatToken42 extends BaseContract {
   ): Promise<this>;
 
   allowance: TypedContractMethod<
-    [arg0: AddressLike, arg1: AddressLike],
+    [_owner: AddressLike, spender: AddressLike],
     [bigint],
     "view"
   >;
 
   approve: TypedContractMethod<
-    [_spender: AddressLike, _value: BigNumberish],
+    [spender: AddressLike, value: BigNumberish],
     [boolean],
     "nonpayable"
   >;
 
-  balanceOf: TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+  balanceOf: TypedContractMethod<[account: AddressLike], [bigint], "view">;
 
-  burn: TypedContractMethod<
-    [_from: AddressLike, _value: BigNumberish],
-    [boolean],
-    "nonpayable"
-  >;
+  burn: TypedContractMethod<[value: BigNumberish], [boolean], "nonpayable">;
 
   decimals: TypedContractMethod<[], [bigint], "view">;
 
   mint: TypedContractMethod<
-    [_to: AddressLike, _value: BigNumberish],
+    [to: AddressLike, value: BigNumberish],
     [boolean],
     "nonpayable"
   >;
 
   name: TypedContractMethod<[], [string], "view">;
 
+  owner: TypedContractMethod<[], [string], "view">;
+
   symbol: TypedContractMethod<[], [string], "view">;
 
   totalSupply: TypedContractMethod<[], [bigint], "view">;
 
   transfer: TypedContractMethod<
-    [_to: AddressLike, _value: BigNumberish],
+    [to: AddressLike, value: BigNumberish],
     [boolean],
     "nonpayable"
   >;
 
   transferFrom: TypedContractMethod<
-    [_from: AddressLike, _to: AddressLike, _value: BigNumberish],
+    [from: AddressLike, to: AddressLike, value: BigNumberish],
     [boolean],
     "nonpayable"
   >;
@@ -228,39 +226,38 @@ export interface BatToken42 extends BaseContract {
   getFunction(
     nameOrSignature: "allowance"
   ): TypedContractMethod<
-    [arg0: AddressLike, arg1: AddressLike],
+    [_owner: AddressLike, spender: AddressLike],
     [bigint],
     "view"
   >;
   getFunction(
     nameOrSignature: "approve"
   ): TypedContractMethod<
-    [_spender: AddressLike, _value: BigNumberish],
+    [spender: AddressLike, value: BigNumberish],
     [boolean],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "balanceOf"
-  ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+  ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "burn"
-  ): TypedContractMethod<
-    [_from: AddressLike, _value: BigNumberish],
-    [boolean],
-    "nonpayable"
-  >;
+  ): TypedContractMethod<[value: BigNumberish], [boolean], "nonpayable">;
   getFunction(
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "mint"
   ): TypedContractMethod<
-    [_to: AddressLike, _value: BigNumberish],
+    [to: AddressLike, value: BigNumberish],
     [boolean],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "name"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "symbol"
@@ -271,14 +268,14 @@ export interface BatToken42 extends BaseContract {
   getFunction(
     nameOrSignature: "transfer"
   ): TypedContractMethod<
-    [_to: AddressLike, _value: BigNumberish],
+    [to: AddressLike, value: BigNumberish],
     [boolean],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "transferFrom"
   ): TypedContractMethod<
-    [_from: AddressLike, _to: AddressLike, _value: BigNumberish],
+    [from: AddressLike, to: AddressLike, value: BigNumberish],
     [boolean],
     "nonpayable"
   >;

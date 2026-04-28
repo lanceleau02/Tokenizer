@@ -17,23 +17,41 @@ declare module "hardhat/types/runtime" {
       name: "BatToken42",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BatToken42__factory>;
+    getContractFactory(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20__factory>;
 
     getContractAt(
       name: "BatToken42",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.BatToken42>;
+    getContractAt(
+      name: "IERC20",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20>;
 
     deployContract(
       name: "BatToken42",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.BatToken42>;
+    deployContract(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20>;
 
     deployContract(
       name: "BatToken42",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.BatToken42>;
+    deployContract(
+      name: "IERC20",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20>;
 
     // default types
     getContractFactory(

@@ -2,5 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { BatToken42 } from "./BatToken42";
+export type { IERC20 } from "./IERC20";
 export * as factories from "./factories";
 export { BatToken42__factory } from "./factories/BatToken42__factory";
+export { IERC20__factory } from "./factories/IERC20__factory";

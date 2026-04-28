@@ -9,7 +9,7 @@ describe("BatToken42", function () {
 
     // Deploy the contract
     const Token = await ethers.getContractFactory("BatToken42");
-    const batToken = await Token.deploy();
+    const batToken = await Token.deploy(1000000);
 
     return { batToken, owner, addr1, addr2 };
   }
@@ -31,6 +31,16 @@ describe("BatToken42", function () {
       const totalSupply = await batToken.totalSupply();
       
       expect(ownerBalance).to.equal(totalSupply);
+    });
+
+    it("Should set the correct total supply with decimals", async function () {
+      const { batToken, owner } = await deployTokenFixture();
+
+      const totalSupply = await batToken.totalSupply();
+      const decimals = await batToken.decimals();
+
+      const expectedSupply = ethers.parseUnits("1000000", decimals);
+      await expect(totalSupply).to.equal(expectedSupply);
     });
   });
 
@@ -128,11 +138,27 @@ describe("BatToken42", function () {
     });
 
     it("Should emit a Transfer event where the from address is the Zero Address", async function (){
+      const {batToken, owner} = await deployTokenFixture();
+
+      await expect(
+        batToken.connect(owner).mint(owner.address, 100)
+      ).to.emit(batToken, "Transfer").withArgs(ethers.ZeroAddress, owner.address, 100);
+    });
+
+    it("Should fail if the caller is not the owner", async function (){
       const {batToken, addr1} = await deployTokenFixture();
 
       await expect(
         batToken.connect(addr1).mint(addr1.address, 100)
-      ).to.emit(batToken, "Transfer").withArgs(ethers.ZeroAddress, addr1.address, 100);
+      ).to.be.revertedWith("Not the owner");
+    });
+
+    it("Should revert if a non-owner tries to mint", async function (){
+      const {batToken, addr1} = await deployTokenFixture();
+
+      await expect(
+        batToken.connect(addr1).mint(addr1.address, 100)
+      ).to.be.revertedWith("Not the owner");
     });
   });
 
@@ -141,7 +167,7 @@ describe("BatToken42", function () {
       const {batToken, owner} = await deployTokenFixture();
       const totalSupply = await batToken.totalSupply();
 
-      await batToken.burn(owner.address, 100);
+      await batToken.burn(100);
       expect(await batToken.balanceOf(owner.address)).to.equal(totalSupply - 100n);
       expect(await batToken.totalSupply()).to.equal(totalSupply - 100n);
     });
@@ -153,7 +179,7 @@ describe("BatToken42", function () {
       expect(await batToken.balanceOf(addr1.address)).to.equal(5);
 
       await expect(
-        batToken.connect(addr1).burn(addr1.address, 10)
+        batToken.connect(addr1).burn(10)
       ).to.be.revertedWith("Balance is too low");
     });
   });

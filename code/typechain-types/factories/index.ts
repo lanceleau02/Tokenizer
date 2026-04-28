@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { BatToken42__factory } from "./BatToken42__factory";
+export { IERC20__factory } from "./IERC20__factory";
