@@ -42,6 +42,12 @@ describe("BatToken42", function () {
       const expectedSupply = ethers.parseUnits("1000000", decimals);
       await expect(totalSupply).to.equal(expectedSupply);
     });
+
+    it("Should set the deployer as the owner", async function () {
+      const { batToken, owner } = await deployTokenFixture();
+
+      expect(await batToken.owner()).to.equal(owner.address);
+    });
   });
 
   describe("Transactions", function () {
@@ -181,6 +187,137 @@ describe("BatToken42", function () {
       await expect(
         batToken.connect(addr1).burn(10)
       ).to.be.revertedWith("Balance is too low");
+    });
+  });
+
+  describe("Events", function () {
+    it("Should emit a Transfer event on transfer()", async function (){
+      const {batToken, owner, addr1} = await deployTokenFixture();
+
+      await batToken.transfer(addr1.address, 50);
+      expect(await batToken.balanceOf(addr1.address)).to.equal(50);
+
+      await expect(
+        batToken.connect(addr1).transfer(owner.address, 50)
+      ).to.emit(batToken, "Transfer");
+    });
+
+    it("Should emit an Approval event on approve()", async function (){
+      const {batToken, addr1, addr2} = await deployTokenFixture();
+      
+      await batToken.transfer(addr2.address, 100);
+      expect(await batToken.balanceOf(addr2.address)).to.equal(100);
+
+      await expect(
+        batToken.connect(addr1).approve(addr2.address, 50)
+      ).to.emit(batToken, "Approval");
+    });
+
+    it("Should emit a Transfer event to zero address on burn()", async function (){
+      const {batToken, owner} = await deployTokenFixture();
+
+      await expect(
+        batToken.connect(owner).burn(100)
+      ).to.emit(batToken, "Transfer").withArgs(owner.address, ethers.ZeroAddress, 100);
+    });
+
+    it("Should emit a Transfer event on transferFrom()", async function () {
+      const {batToken, owner, addr1, addr2} = await deployTokenFixture();
+
+      await batToken.transfer(addr1.address, 50);
+      expect(await batToken.balanceOf(addr1.address)).to.equal(50);
+
+      await batToken.connect(addr1).approve(addr2.address, 50);
+
+      await expect(
+        batToken.connect(addr2).transferFrom(addr1.address, owner.address, 50)
+      ).to.emit(batToken, "Transfer");
+    });
+  });
+
+  describe("🚫 Zero Address", function () {
+    it("Should revert when transferring to the zero address", async function() {
+      const {batToken, owner} = await deployTokenFixture();
+
+      await expect(
+        batToken.connect(owner).transfer(ethers.ZeroAddress, 1)
+      ).to.be.revertedWith("Transfer to zero address");
+    });
+    
+    it("Should revert when approving the zero address", async function() {
+      const { batToken, addr1, addr2 } = await deployTokenFixture();
+
+      await expect(
+        batToken.connect(addr1).approve(ethers.ZeroAddress, 100)
+      ).to.be.revertedWith("Approve to zero address");
+    });
+    
+    it("Should revert when minting to the zero address", async function() {
+      const { batToken, owner } = await deployTokenFixture();
+
+      await expect(
+        batToken.connect(owner).mint(ethers.ZeroAddress, 100)
+      ).to.be.revertedWith("Mint to zero address");
+    });
+  });
+  
+  describe("Allowance Edge Cases", function () {
+    it("Should overwrite the previous allowance when approve() is called again", async function() {
+      const {batToken, owner, addr1} = await deployTokenFixture();
+
+      await batToken.connect(owner).approve(addr1.address, 50);
+      await batToken.connect(owner).approve(addr1.address, 100);
+      
+      expect(await batToken.allowance(owner, addr1.address)).to.equal(100);
+    });
+    
+    it("Should decrease the allowance after a transferFrom()", async function() {
+      const { batToken, owner, addr1, addr2 } = await deployTokenFixture();
+
+      await batToken.connect(owner).approve(addr1.address, 50);
+      await batToken.connect(addr1).transferFrom(owner, addr2, 25);
+      expect(await batToken.allowance(owner, addr1.address)).to.equal(25);
+    });
+    
+    it("Should revoke the allowance when approved amount is set to 0", async function() {
+      const { batToken, owner, addr1, addr2} = await deployTokenFixture();
+
+      await batToken.connect(owner).approve(addr1.address, 50);
+      await batToken.connect(owner).approve(addr1.address, 0);
+      expect(await batToken.allowance(owner, addr1.address)).to.equal(0);
+      await expect(
+        batToken.connect(addr1).transferFrom(owner, addr2, 50)
+      ).to.be.revertedWith("Allowance is too low");
+    });
+  });
+  
+  describe("Edge Cases", function () {
+    it("Should allow transferring 0 tokens", async function() {
+      const { batToken, owner, addr1} = await deployTokenFixture();
+
+      await expect(
+        batToken.connect(owner).transfer(addr1.address, 0)
+      ).to.emit(batToken, "Transfer");
+    });
+    
+    it("Should allow burning 0 tokens", async function() {
+      const { batToken, owner} = await deployTokenFixture();
+
+      expect(batToken.connect(owner).burn(0));
+    });
+    
+    it("Should allow minting 0 tokens", async function() {
+      const { batToken, owner, addr1} = await deployTokenFixture();
+
+      expect(batToken.connect(owner).mint(addr1, 0));
+    });
+    
+    it("Should allow transferring the entire balance", async function() {
+      const { batToken, owner, addr1, addr2} = await deployTokenFixture();
+      
+      await batToken.connect(owner).transfer(addr1, 50);
+      await batToken.connect(addr1).transfer(addr2, await batToken.balanceOf(addr1.address));
+      expect(await batToken.balanceOf(addr1.address)).to.equal(0);
     });
   });
 });
