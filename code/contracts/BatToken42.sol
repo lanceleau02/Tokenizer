@@ -120,6 +120,15 @@ contract BatToken42 is IERC20 {
     }
 
     /**
+     * @notice Transfers ownership of the contract to a new address.
+     * @param newOwner Address of the new owner.
+     */
+    function transferOwnership(address newOwner) external onlyOwner {
+        require(newOwner != address(0), "New owner is zero address");
+        owner = newOwner;
+    }
+
+    /**
      * @notice Mints new tokens to a given address — only the owner can call this
      * @param to    Address to receive the minted tokens
      * @param value Amount of tokens to mint
