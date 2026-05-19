@@ -29,6 +29,10 @@ Ensure your system meets the following requirements before starting:
    ETHERSCAN_API_KEY=your_etherscan_api_key_here
    ```
 
+## Development Framework: Hardhat
+
+**Hardhat** is a premier development environment for Ethereum software. It allows developers to compile, deploy, test, and debug Ethereum software securely and seamlessly. Hardhat comes with a local Ethereum network designed for development, making it extremely easy to test smart contracts before interacting with a live network.
+
 ## Compiling the Smart Contracts
 
 To compile `BatToken42` and `MultiSigWallet` into EVM bytecode, run the following from within the `code` directory:
@@ -39,14 +43,4 @@ npx hardhat compile
 
 This will automatically trigger the Solidity compiler and generate the required ABI and typing artifacts in the `artifacts/` folder.
 
-## Web3 Development Concepts
 
-### EVM (Ethereum Virtual Machine) Compatibility
-During development, you might notice that your public wallet address is exactly the same across many networks (Ethereum, Linea, Base, BNB Chain, Polygon, Optimism, etc.). This is completely normal and is a key architectural feature of Web3. All EVM-compatible chains run the same execution environment and use the same cryptography (the `secp256k1` elliptic curve) to generate addresses. 
-
-### ERC-20 vs. Blockchain Networks
-* **ERC-20 (or BEP-20)**: This is **not a network**. It is a standard interface specification for creating fungible tokens in Solidity.
-* **The Networks**: Ethereum, BNB Smart Chain, and Polygon are entirely separate blockchains. `BatToken42` can be deployed on *any* of these networks, but its state remains strictly local to each blockchain.
-
-### Testnet ETH (Play Money)
-Tokens like **SepoliaETH** have **zero real-world financial value**. They exist strictly so developers can deploy and test smart contracts without spending real money. Even if your MetaMask displays a fiat USD value next to your testnet ETH balance, it is merely a harmless UI glitch where the wallet applies Mainnet ETH pricing to testnet assets.

@@ -2,6 +2,10 @@
 
 Security is paramount in smart contract development. This project utilizes a comprehensive, professional-grade test suite using the **Hardhat** framework and **Chai** assertions.
 
+### Testing Framework & Assertions
+* **Hardhat**: Used to simulate the blockchain environment, manage accounts, and deploy the contracts locally.
+* **Chai**: A popular BDD/TDD assertion library for JavaScript. We use Chai (combined with Hardhat's custom matchers) to assert that our smart contracts return expected values and properly revert on invalid actions.
+
 ## Running the Tests
 
 To execute the entire test suite, run the following command from the `code/` directory:
