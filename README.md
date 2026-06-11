@@ -17,10 +17,11 @@ To keep the repository clean and modular, the complete documentation is organize
 
 As required by the project specifications, here are the core technical choices made during the development of this token:
 
-1. **Hardhat over Truffle/Remix**: Hardhat was chosen as the primary development framework due to its superior TypeScript integration, faster compilation times, and excellent local network testing capabilities via Chai matchers.
-2. **From-Scratch ERC-20**: Instead of inheriting from standard OpenZeppelin libraries, the entire `BatToken42` contract was written completely from scratch. This ensures a deep, fundamental understanding of the ERC-20 interface, token balances mapping, allowances, and zero-address security checks.
-3. **Decentralized Governance (MultiSig)**: For the bonus, a Multi-Signature Wallet was developed instead of a simple Timelock or single-owner model. This drastically enhances the security of the token by acting as a decentralized board of directors, eliminating a single point of failure.
-4. **Sepolia Testnet**: Sepolia was chosen for deployment over Goerli (which is deprecated) because it is currently the most stable, developer-friendly Ethereum testnet for proof-of-concept deployments.
+1. **Solidity**: Solidity was chosen as the smart contract programming language because it is the most mature, widely adopted, and heavily audited language for the Ethereum Virtual Machine (EVM). It offers unmatched community support and seamless compatibility with the ERC-20/BEP-20 standards.
+2. **Hardhat over Truffle/Remix**: Hardhat was chosen as the primary development framework due to its superior TypeScript integration, faster compilation times, and excellent local network testing capabilities via Chai matchers.
+3. **From-Scratch ERC-20**: Instead of inheriting from standard OpenZeppelin libraries, the entire `BatToken42` contract was written completely from scratch. This ensures a deep, fundamental understanding of the ERC-20 interface, token balances mapping, allowances, and zero-address security checks.
+4. **Decentralized Governance (MultiSig)**: For the bonus, a Multi-Signature Wallet was developed instead of a simple Timelock or single-owner model. This drastically enhances the security of the token by acting as a decentralized board of directors, eliminating a single point of failure.
+5. **Sepolia Testnet**: Sepolia was chosen for deployment over Goerli (which is deprecated) because it is currently the most stable, developer-friendly Ethereum testnet for proof-of-concept deployments.
 
 ---
 
