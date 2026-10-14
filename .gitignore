@@ -1,3 +1,6 @@
 .env
 metamask.txt
 node_modules
+code/artifacts/
+code/cache/
+code/typechain-types/

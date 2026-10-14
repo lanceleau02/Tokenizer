@@ -8,7 +8,7 @@ To keep the repository clean and modular, the complete documentation is organize
 
 * 🛠️ **[Development Guide](documentation/development.md)**: Setup, prerequisites, environment configuration, compiling instructions, and core Web3 concepts.
 * 🧪 **[Testing Guide](documentation/testing.md)**: Details on our robust 49/49 passing test coverage, including standard token tests, edge cases, and the Master DAO Integration test.
-* 🚀 **[Deployment Guide](documentation/deployment.md)**: Steps to deploy the token, transfer ownership, and successfully execute Etherscan & Sourcify verification.
+* 🚀 **[Deployment Guide](documentation/deployment.md)**: Steps to deploy the token, transfer ownership, and successfully execute Etherscan verification.
 * 🦇 **[Features & Governance](documentation/features.md)**: An in-depth explanation of the ERC-20 token mechanics and the Bonus Multi-Signature governance system.
 
 ---
@@ -29,10 +29,10 @@ As required by the project specifications, here are the core technical choices m
 
 Both contracts have been successfully deployed, linked via ownership transfer, and verified on the public Sepolia Testnet!
 
-* **BatToken42 (Token)**: `0x585C4A0b6DF6b703D74b7cbF78CD87b19422F96F`
-  * [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0x585C4A0b6DF6b703D74b7cbF78CD87b19422F96F#code)
-* **MultiSigWallet (Governance/Bonus)**: `0xB144E9A94d0F760a8b5df344eAc27EDe295579F4`
-  * [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xB144E9A94d0F760a8b5df344eAc27EDe295579F4#code)
+* **BatToken42 (Token)**: `0x3A833F18bA966af574c66A6900Eacf818b2BC750`
+  * [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0x3A833F18bA966af574c66A6900Eacf818b2BC750#code)
+* **MultiSigWallet (Governance/Bonus)**: `0x5dF9b626393d94A50Dc89c1390A16E62B13c18f7`
+  * [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0x5dF9b626393d94A50Dc89c1390A16E62B13c18f7#code)
 
 ### Token Details
 * **Contract Name**: `BatToken42`

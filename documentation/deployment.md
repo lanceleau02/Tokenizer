@@ -49,10 +49,9 @@ At the end, the script prints the addresses of both contracts and their Ethersca
 
 ---
 
-## Contract Verification (Etherscan & Sourcify)
+## Contract Verification (Etherscan)
 
 * **Etherscan**: The leading block explorer and analytics platform for Ethereum. Verifying your contract on Etherscan allows anyone to easily read your source code and interact with your contract directly through their web interface.
-* **Sourcify**: A decentralized smart contract verification service. It securely links the deployed EVM bytecode to its original Solidity source code, ensuring total transparency and trust without relying on a centralized platform.
 
 Once deployed, you should verify both contracts to make their Solidity code completely readable and public. Run the following commands from the `code/` folder.
 
@@ -81,7 +80,7 @@ Because `MultiSigWallet` takes an array of owner addresses in its constructor, s
    npx hardhat verify --network sepolia --constructor-args ../deployment/arguments.js <YOUR_MULTISIG_ADDRESS>
    ```
 
-*(Note: Verification publishes your Solidity files to both **Etherscan** and the decentralized **Sourcify** registry automatically!).*
+*(Note: Verification publishes the Solidity source on Etherscan)*
 
 ### 3. Update the repository
 Copy the new contract addresses into the **Deployed Addresses** section of the root `README.md`.
