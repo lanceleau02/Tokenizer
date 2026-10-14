@@ -53,7 +53,7 @@ async function main() {
   console.log(`\nView BatToken42 live: https://sepolia.etherscan.io/address/${tokenAddress}`);
   console.log(`View MultiSig live:   https://sepolia.etherscan.io/address/${multiSigAddress}`);
   console.log("\nTo verify on Etherscan, run these commands:");
-  console.log(`npx hardhat verify --network sepolia ${multiSigAddress} '["${owner1}","${owner2}","${owner3}"]' 2`);
+  console.log(`npx hardhat verify --network sepolia --constructor-args ../deployment/arguments.js ${multiSigAddress}`);
   console.log(`npx hardhat verify --network sepolia ${tokenAddress} 1000000`);
 }
 

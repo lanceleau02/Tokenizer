@@ -61,9 +61,12 @@ Your `BatToken42` ownership was transferred to the `MultiSigWallet`. Now, we wil
   1. Navigate to the **MultiSigWallet** contract on Etherscan -> **Contract** -> **Write Contract**.
   2. Connect MetaMask with **Account A**.
   3. Expand `submitTransaction`.
-  4. In `to`, paste your `BatToken42` contract address.
+  4. In `to`, paste the `BatToken42` contract address: `0xD1A2B71300a9364Fb6921a701C8224cAA99d83Ef`. 
   5. In `value`, enter `0`.
-  6. In `data`, you need the encoded payload for the mint function. (You can generate this beforehand using a quick script, or just explain the concept to the evaluator: "Here I would paste the raw hex data for `mint(address,amount)`"). *For a simpler demo, you can submit a blank transaction with `data` as `0x00` just to show the voting process works!*
+  6. In `data`, paste the encoded call to `mint(0xE3FB8f1f9125E63C7De7Fd48D2dA633767F5dC66, 100 * 10^18)`, which mints 100 BT42 to Account A: `0x40c10f19000000000000000000000000e3fb8f1f9125e63c7de7fd48d2da633767f5dc660000000000000000000000000000000000000000000000056bc75e2d63100000`
+     * `0x40c10f19` is the function selector of `mint(address,uint256)`.
+     * The next 32 bytes are the recipient address, padded with zeros.
+     * The last 32 bytes are the amount: `100 * 10^18` = `0x56bc75e2d63100000`.
   7. Click **Write** and confirm. Take note of the transaction ID (likely `0` if it's the first one).
 
 ### 3. Non-Owner Rejection (Security)
@@ -80,5 +83,6 @@ Your `BatToken42` ownership was transferred to the `MultiSigWallet`. Now, we wil
   1. Switch MetaMask to **Account B** (Owner 2). Connect to Etherscan.
   2. Expand `confirmTransaction`, enter ID `0`, and click **Write**. Confirm the transaction.
   3. Once confirmed, expand `executeTransaction`.
+     * **Proof**: On `BatToken42` → **Read Contract**, query `totalSupply`: it went from `1000000000000000000000000` to `1000100000000000000000000` (1,000,000 → 1,000,100 BT42).
   4. Enter ID `0` and click **Write**.
   5. Confirm in MetaMask. The transaction will successfully execute!

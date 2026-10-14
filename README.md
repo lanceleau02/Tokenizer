@@ -29,10 +29,10 @@ As required by the project specifications, here are the core technical choices m
 
 Both contracts have been successfully deployed, linked via ownership transfer, and verified on the public Sepolia Testnet!
 
-* **BatToken42 (Token)**: `0x3A833F18bA966af574c66A6900Eacf818b2BC750`
-  * [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0x3A833F18bA966af574c66A6900Eacf818b2BC750#code)
-* **MultiSigWallet (Governance/Bonus)**: `0x5dF9b626393d94A50Dc89c1390A16E62B13c18f7`
-  * [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0x5dF9b626393d94A50Dc89c1390A16E62B13c18f7#code)
+* **BatToken42 (Token)**: `0xD1A2B71300a9364Fb6921a701C8224cAA99d83Ef`
+  * [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xD1A2B71300a9364Fb6921a701C8224cAA99d83Ef#code)
+* **MultiSigWallet (Governance/Bonus)**: `0xd0497b669Cc01c6FA45e1E5601Ea88e074b0013a`
+  * [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xd0497b669Cc01c6FA45e1E5601Ea88e074b0013a#code)
 
 ### Token Details
 * **Contract Name**: `BatToken42`
