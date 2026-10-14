@@ -2,12 +2,9 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 
 describe("🦇 BatToken42", function () {
-  // We define a fixture to reuse the same setup in every test.
-  // This makes tests run faster and keeps the code clean.
   async function deployTokenFixture() {
     const [owner, addr1, addr2] = await ethers.getSigners();
 
-    // Deploy the contract
     const Token = await ethers.getContractFactory("BatToken42");
     const batToken = await Token.deploy(1000000);
 

@@ -4,15 +4,13 @@ import { ethers } from "hardhat";
 describe("👛 MultiSigWallet", function () {
   async function deployFixture() {
     const [owner, addr1, addr2, addr3, recipient] = await ethers.getSigners();
-
-    // Deploy MultiSigWallet with owner, addr1, and addr2 as owners. Threshold = 2
+  
     const MultiSigFactory = await ethers.getContractFactory("MultiSigWallet");
     const multiSigWallet = await MultiSigFactory.deploy(
       [owner.address, addr1.address, addr2.address],
       2
     );
 
-    // Deploy BatToken42 with 1,000,000 initial supply
     const TokenFactory = await ethers.getContractFactory("BatToken42");
     const batToken = await TokenFactory.deploy(1000000);
 

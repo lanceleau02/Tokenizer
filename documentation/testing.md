@@ -8,11 +8,15 @@ Security is paramount in smart contract development. This project utilizes a com
 
 ## Running the Tests
 
-To execute the entire test suite, run the following command from the `code/` directory:
+The tests run on Hardhat's local in-memory network: no `.env`, wallet or test ETH is needed. From the `code/` directory:
 
 ```bash
-npx hardhat test
+cd code
+npm install
+npm test
 ```
+
+`npm test` runs `hardhat test`, which compiles the contracts and executes every file in `code/test/`.
 
 ## Test Coverage
 
@@ -38,3 +42,12 @@ A specialized master test verifies the end-to-end integration of both contracts:
 1. Deploys both `BatToken42` and `MultiSigWallet`.
 2. Transfers ownership of the token to the MultiSig contract.
 3. Successfully tests decentralized token minting by proposing a mint transaction, gathering required multi-signatures, and executing it through the MultiSig wallet.
+
+## Testing the Deployment Script Locally
+
+To check the full deployment flow without spending Sepolia ETH, run the deployment script on the local Hardhat network (it uses the local test accounts as MultiSig owners 2 and 3):
+
+```bash
+cd code
+NODE_PATH=$PWD/node_modules npx hardhat run ../deployment/deploy.ts
+```
