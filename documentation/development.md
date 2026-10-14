@@ -27,6 +27,8 @@ Ensure your system meets the following requirements before starting:
    PRIVATE_KEY=your_private_key_here
    SEPOLIA_RPC_URL=your_rpc_url_here
    ETHERSCAN_API_KEY=your_etherscan_api_key_here
+   MULTISIG_OWNER_2=0x...
+   MULTISIG_OWNER_3=0x...
    ```
 
 ## Development Framework: Hardhat

@@ -20,8 +20,7 @@ interface IERC20 {
 
 /**
  * @title BatToken42
- * @dev BEP-20 compliant token deployed on BNB Chain.
- *      Manually implements the IERC20 interface.
+ * @dev Manually implements the IERC20 interface.
  */
 contract BatToken42 is IERC20 {
     //  Token metadata
